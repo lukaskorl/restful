@@ -1,0 +1,29 @@
+{
+    "name": "lukaskorl/restful",
+    "description": "Create RESTful API responses with ease",
+    "type": "library",
+    "keywords": ["rest", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lukas Korl",
+            "email": "hello@lukaskorl.com",
+            "homepage": "http://lukaskorl.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.1.*",
+        "illuminate/pagination": "4.1.*",
+        "symfony/http-foundation": "2.4.*",
+        "jms/serializer": "0.16.*",
+        "symfony/yaml": "2.4.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Lukaskorl\\Restful": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
