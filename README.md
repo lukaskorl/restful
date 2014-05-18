@@ -111,4 +111,11 @@ To install *RESTful* simply add it as a requirement to the projects `composer.js
 		"lukaskorl/restful": "dev-develop"
 	}
 	
+or run `composer require lukaskorl/restful`.
+	
 **Word of caution**: *RESTful* is currently under heavy development. I will release a stable version 1.0.0 soon. Until then the interface may change. I do not recommend to use *RESTful* as a `dev-develop` dependency in production code.
+
+
+## License
+
+*RESTful* is open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT)
