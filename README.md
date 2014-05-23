@@ -121,7 +121,11 @@ If you want to use *RESTful* in any other PHP application install it via compose
 
     <?php
     require("vendor/autoload.php");
+    use \Lukaskorl\Restful\Facades\Vanilla as Restful;
     
+    Restful::entity(array( 'name' => 'Dexter' ))->send();
+    
+In comparison to using *RESTful* in a framework you don't need to return the result of the call but to directly render+send the output back to the use.
 
 # License
 
