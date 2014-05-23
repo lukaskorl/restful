@@ -11,11 +11,12 @@ class ConfigFactory {
 
     protected static $configs = array();
 
-    public static function make($configPath = false, $environment = false)
+    public static function make($configPath = false, $environment = false, $namespace = false)
     {
         // Filter input
         if ($configPath === false) $configPath = self::getConfigPath();
         if ($environment === false) $environment = self::getEnvironment();
+        if ($namespace === false) $namespace = __DIR__."/../../config";
 
         // Check if there is already an instance for this configuration
         $identifier = self::getIdentifier($configPath, $environment);
@@ -25,6 +26,7 @@ class ConfigFactory {
         $file = new Filesystem;
         $loader = new FileLoader($file, $configPath);
         self::$configs[$identifier] = new Repository($loader, $environment);
+        self::$configs[$identifier]->addNamespace("restful", $namespace);
         return self::$configs[$identifier];
     }
 
