@@ -327,6 +327,6 @@ class Restful {
 
     protected function respondEmpty()
     {
-        return $this->reponse->make(null, $this->code);
+        return $this->response->make(null, $this->code);
     }
 } 
