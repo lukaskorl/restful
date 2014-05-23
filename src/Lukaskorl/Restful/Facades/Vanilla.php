@@ -1,6 +1,6 @@
 <?php namespace Lukaskorl\Restful\Facades;
 
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 use Lukaskorl\Restful\ConfigFactory;
 use Lukaskorl\Restful\Restful;
 
