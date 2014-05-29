@@ -1,21 +1,13 @@
 <?php namespace Lukaskorl\Restful;
 
 use Illuminate\Config\Repository as Config;
-use Illuminate\Support\Facades\Response;
+use Lukaskorl\Restful\Facades\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
-use JMS\Serializer\SerializerBuilder;
 
 use Lukaskorl\Restful\Support\Structure;
 
 class Restful {
-
-    const FORMAT_XML = 'xml';
-    const FORMAT_PHP = 'php';
-    const FORMAT_SERIALIZED = 'serialized';
-    const FORMAT_JSON = 'json';
-    const FORMAT_JSONP = 'jsonp';
-    const FORMAT_YAML = 'yaml';
 
     /**
      * Configuration repository.
@@ -27,7 +19,7 @@ class Restful {
     /**
      * Response object of Laravel framework.
      *
-     * @var \Illuminate\Support\Facades\Response
+     * @var \Lukaskorl\Restful\Facades\Response
      */
     protected $response;
 
@@ -50,7 +42,7 @@ class Restful {
      *
      * @var string
      */
-    protected $format = self::FORMAT_JSON;
+    protected $format = Response::FORMAT_JSON;
 
     /**
      * Constructor
@@ -62,43 +54,6 @@ class Restful {
     {
         $this->config = $config;
         $this->response = $response;
-        $serializer = SerializerBuilder::create()->build();
-
-        // Setup XML macro for output format
-        $this->response->macro(self::FORMAT_XML, function(array $vars, $status = 200, array $header = []) use ($response, $serializer, $config)
-        {
-            // Create response
-            return $response->make($serializer->serialize($vars, 'xml'), $status, $header);
-        });
-
-        // Setup YAML macro for output format
-        $this->response->macro(self::FORMAT_YAML, function(array $vars, $status = 200, array $header = []) use ($response, $serializer, $config)
-        {
-            // Create response
-            return $response->make($serializer->serialize($vars, 'yml'), $status, $header);
-        });
-
-        // Setup "serialized" macro for output format
-        $this->response->macro(self::FORMAT_SERIALIZED, function(array $vars, $status = 200, array $header = []) use ($response, $serializer, $config)
-        {
-            // Create response
-            return $response->make(serialize($vars), $status, $header);
-        });
-
-        // Setup "php" macro for output format
-        $this->response->macro(self::FORMAT_PHP, function(array $vars, $status = 200, array $header = []) use ($response, $serializer, $config)
-        {
-            // Create response
-            return $response->make(var_export($vars, true), $status, $header);
-        });
-
-        // Setup "JSONP" macro for output format
-        $this->response->macro(self::FORMAT_JSONP, function(array $vars, $status = 200, array $header = [], $callback) use ($response, $serializer, $config)
-        {
-            // Create response
-            return $response->json($vars, $status, $header)->setCallback($callback);
-        });
-
     }
 
     /**
@@ -120,9 +75,16 @@ class Restful {
      */
     public function json()
     {
-        $this->format = self::FORMAT_JSON;
+        $this->format = Response::FORMAT_JSON;
         return $this;
     }
+
+    /**
+     * Alias for json() to add syntactic sugar
+     *
+     * @return $this
+     */
+    public function asJson() { return $this->json(); }
 
     /**
      * Set the output format to JSONP
@@ -132,10 +94,18 @@ class Restful {
      */
     public function jsonp($callback = null)
     {
-        $this->format = self::FORMAT_JSONP;
+        $this->format = Response::FORMAT_JSONP;
         $this->params = $callback;
         return $this;
     }
+
+    /**
+     * Alias for jsonp() to add syntactic sugar
+     *
+     * @param null $callback
+     * @return $this
+     */
+    public function asJsonp($callback = null) { return $this->jsonp($callback); }
 
     /**
      * Set the output format to serialized
@@ -144,9 +114,16 @@ class Restful {
      */
     public function serialized()
     {
-        $this->format = self::FORMAT_SERIALIZED;
+        $this->format = Response::FORMAT_SERIALIZED;
         return $this;
     }
+
+    /**
+     * Alias for serialized() to add syntactic sugar
+     *
+     * @return $this
+     */
+    public function asSerialized() { return $this->serialized(); }
 
     /**
      * Set the output format to php
@@ -155,9 +132,15 @@ class Restful {
      */
     public function php()
     {
-        $this->format = self::FORMAT_PHP;
+        $this->format = Response::FORMAT_PHP;
         return $this;
     }
+
+    /**
+     * Alias for php() to add syntactic sugar
+     * @return $this
+     */
+    public function asPhp() { return $this->php(); }
 
     /**
      * Set the output format to XML
@@ -166,9 +149,15 @@ class Restful {
      */
     public function xml()
     {
-        $this->format = self::FORMAT_XML;
+        $this->format = Response::FORMAT_XML;
         return $this;
     }
+
+    /**
+     * Alias for xml() to add syntactic sugar
+     * @return $this
+     */
+    public function asXml() { return $this->xml(); }
 
     /**
      * Set the output format to YAML
@@ -177,9 +166,27 @@ class Restful {
      */
     public function yaml()
     {
-        $this->format = self::FORMAT_YAML;
+        $this->format = Response::FORMAT_YAML;
         return $this;
     }
+
+    /**
+     * Alias for yaml() to add syntactic sugar
+     * @return $this
+     */
+    public function asYaml() { return $this->yaml(); }
+
+    /**
+     * Alias for yaml() to add syntactic sugar
+     * @return $this
+     */
+    public function yml() { return $this->yaml(); }
+
+    /**
+     * Alias for yaml() to add syntactic sugar
+     * @return $this
+     */
+    public function asYml() { return $this->yaml(); }
 
     /**
      * Set the default response code.
