@@ -80,13 +80,6 @@ class Restful {
     }
 
     /**
-     * Alias for json() to add syntactic sugar
-     *
-     * @return $this
-     */
-    public function asJson() { return $this->json(); }
-
-    /**
      * Set the output format to JSONP
      *
      * @param string|null $callback
@@ -100,14 +93,6 @@ class Restful {
     }
 
     /**
-     * Alias for jsonp() to add syntactic sugar
-     *
-     * @param null $callback
-     * @return $this
-     */
-    public function asJsonp($callback = null) { return $this->jsonp($callback); }
-
-    /**
      * Set the output format to serialized
      *
      * @return $this
@@ -117,13 +102,6 @@ class Restful {
         $this->format = Response::FORMAT_SERIALIZED;
         return $this;
     }
-
-    /**
-     * Alias for serialized() to add syntactic sugar
-     *
-     * @return $this
-     */
-    public function asSerialized() { return $this->serialized(); }
 
     /**
      * Set the output format to php
@@ -137,12 +115,6 @@ class Restful {
     }
 
     /**
-     * Alias for php() to add syntactic sugar
-     * @return $this
-     */
-    public function asPhp() { return $this->php(); }
-
-    /**
      * Set the output format to XML
      *
      * @return $this
@@ -152,12 +124,6 @@ class Restful {
         $this->format = Response::FORMAT_XML;
         return $this;
     }
-
-    /**
-     * Alias for xml() to add syntactic sugar
-     * @return $this
-     */
-    public function asXml() { return $this->xml(); }
 
     /**
      * Set the output format to YAML
@@ -174,19 +140,7 @@ class Restful {
      * Alias for yaml() to add syntactic sugar
      * @return $this
      */
-    public function asYaml() { return $this->yaml(); }
-
-    /**
-     * Alias for yaml() to add syntactic sugar
-     * @return $this
-     */
     public function yml() { return $this->yaml(); }
-
-    /**
-     * Alias for yaml() to add syntactic sugar
-     * @return $this
-     */
-    public function asYml() { return $this->yaml(); }
 
     /**
      * Set the default response code.
