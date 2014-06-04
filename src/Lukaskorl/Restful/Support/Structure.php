@@ -83,37 +83,8 @@ class Structure
      */
     public function clean()
     {
-        /**
-         * Helper function to recursively remove elements from an array
-         *
-         * @param array $array
-         * @param callable $callback
-         * @return array
-         */
-        function array_walk_remove ($array, callable $callback)
-        {
-            if (is_array($array)) {
-                foreach ($array as $k => $v) {
-                    if (is_array($v)) {
-                        $array[$k] = array_walk_remove($v, $callback);
-
-                    }
-
-                    if ($callback($k, $array[$k])) {
-                        unset($array[$k]);
-                    }
-                }
-            } else {
-                if ($callback($array, $array)) {
-                    return null;
-                }
-            }
-
-            return $array;
-        }
-
         // Walk over the array and remove all template keys
-        $this->structure = array_walk_remove($this->structure, function($k, $v)
+        $this->structure = $this->array_walk_remove($this->structure, function($k, $v)
         {
             return (is_array($v) && count($v) < 1) || (!is_array($v) && $v !== '{'.self::TAG_PAYLOAD.'}' && preg_match('/{*}/', $v));
         });
@@ -129,6 +100,35 @@ class Structure
     public function get()
     {
         return $this->structure;
+    }
+
+    /**
+     * Helper function to recursively remove elements from an array
+     *
+     * @param array $array
+     * @param callable $callback
+     * @return array
+     */
+    protected function array_walk_remove($array, callable $callback)
+    {
+        if (is_array($array)) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    $array[$k] = $this->array_walk_remove($v, $callback);
+
+                }
+
+                if ($callback($k, $array[$k])) {
+                    unset($array[$k]);
+                }
+            }
+        } else {
+            if ($callback($array, $array)) {
+                return null;
+            }
+        }
+
+        return $array;
     }
 
 } 
