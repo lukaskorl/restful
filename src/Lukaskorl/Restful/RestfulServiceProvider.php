@@ -1,5 +1,6 @@
 <?php namespace Lukaskorl\Restful;
 
+use JMS\Serializer\SerializerBuilder;
 use Illuminate\Support\ServiceProvider;
 use App;
 
@@ -29,8 +30,9 @@ class RestfulServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        App::bind('restful', function($app) {
-           return App::make('Lukaskorl\Restful\Restful');
+        $this->app->bind('restful', function($app)
+        {
+           return $app->make('Lukaskorl\Restful\Restful');
         });
 	}
 

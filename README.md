@@ -111,4 +111,22 @@ To install *RESTful* simply add it as a requirement to the projects `composer.js
 		"lukaskorl/restful": "dev-develop"
 	}
 	
+or run `composer require lukaskorl/restful`.
+	
 **Word of caution**: *RESTful* is currently under heavy development. I will release a stable version 1.0.0 soon. Until then the interface may change. I do not recommend to use *RESTful* as a `dev-develop` dependency in production code.
+
+## Vanilla PHP
+
+If you want to use *RESTful* in any other PHP application install it via composer as above. To use *RESTful* you will have to add a few more lines of code see the example code below:
+
+    <?php
+    require("vendor/autoload.php");
+    use \Lukaskorl\Restful\Facades\Vanilla as Restful;
+    
+    Restful::entity(array( 'name' => 'Dexter' ))->send();
+    
+In comparison to using *RESTful* in a framework you don't need to return the result of the call but to directly render+send the output back to the use.
+
+# License
+
+*RESTful* is open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT)
