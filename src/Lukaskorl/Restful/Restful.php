@@ -276,6 +276,16 @@ class Restful {
         return $this->error($message, $this->config->get('restful::structure.forbidden.status_code'));
     }
 
+    public function unprocessable($message = "Unprocessable Entity")
+    {
+        return $this->error($message, $this->config->get('restful::structure.unprocessable.status_code'));
+    }
+
+    public function validationFailed($message = "Validation failed")
+    {
+        return $this->unprocessable($message);
+    }
+
     protected function respondWith($data = null)
     {
         return $this->response->{$this->format}(

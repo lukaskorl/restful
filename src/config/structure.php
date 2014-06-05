@@ -61,4 +61,8 @@ return array(
     'forbidden' => array(
         'status_code' => Response::HTTP_FORBIDDEN,
     ),
+
+    'unprocessable' => array(
+        'status_code' => Response::HTTP_UNPROCESSABLE_ENTITY,
+    ),
 );
