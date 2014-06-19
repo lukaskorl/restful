@@ -84,7 +84,7 @@ class Structure
     public function clean()
     {
         // Walk over the array and remove all template keys
-        $this->structure = $this->array_walk_remove($this->structure, function($k, $v)
+        $this->structure = $this->recursivelyWalkStructureAndRemoveByFilter($this->structure, function($k, $v)
         {
             return (is_array($v) && count($v) < 1) || (!is_array($v) && $v !== '{'.self::TAG_PAYLOAD.'}' && preg_match('/{*}/', $v));
         });
@@ -109,12 +109,12 @@ class Structure
      * @param callable $callback
      * @return array
      */
-    protected function array_walk_remove($array, callable $callback)
+    protected function recursivelyWalkStructureAndRemoveByFilter($array, callable $callback)
     {
         if (is_array($array)) {
             foreach ($array as $k => $v) {
                 if (is_array($v)) {
-                    $array[$k] = $this->array_walk_remove($v, $callback);
+                    $array[$k] = $this->recursivelyWalkStructureAndRemoveByFilter($v, $callback);
 
                 }
 
