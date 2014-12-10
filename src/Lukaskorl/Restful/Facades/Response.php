@@ -29,20 +29,6 @@ class Response extends \Illuminate\Support\Facades\Response {
     }
 
     /**
-     * Create JSON response with padding
-     *
-     * @param array $vars
-     * @param int $status
-     * @param array $header
-     * @param $callback
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function jsonp(array $vars, $status = 200, array $header = [], $callback)
-    {
-        return $this->json($vars, $status, $header)->setCallback($callback);
-    }
-
-    /**
      * Create PHP response
      *
      * @param array $vars
